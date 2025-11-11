@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MediaVerify - AI Verification (Blockchain Removed)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --brand-cyan: #64FFDA;
+            --background-deep-navy: #0A192F;
+            --background-dark-teal: #103440;
+            --surface-color-glass: rgba(17, 34, 64, 0.75);
+            --text-primary: #E6F1FF;
+            --text-secondary: #8892B0;
+            --border-color: #112240;
+            --success-color: #64FFDA;
+            --danger-color: #FF4D4D;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- General Setup --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--background-deep-navy);
+            background-image: linear-gradient(var(--background-dark-teal) 1px, transparent 1px), linear-gradient(to right, var(--background-dark-teal) 1px, var(--background-deep-navy) 1px);
+            background-size: 30px 30px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo svg {
+            width: 28px;
+            height: 28px;
+            color: var(--brand-cyan);
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 35px;
+            font-size: 1rem;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--brand-cyan);
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            padding: 120px 0 140px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+        }
+
+        .hero-title span {
+            color: var(--brand-cyan);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-weight: 400;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background-color: transparent;
+            color: var(--brand-cyan);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            border: 2px solid var(--brand-cyan);
+            transition: all 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+        }
+
+        /* --- General Section Styling --- */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 70px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- Features Section --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--surface-color-glass);
+            padding: 35px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+        }
+
+        .feature-icon {
+            margin-bottom: 20px;
+            color: var(--brand-cyan);
+        }
+
+        .feature-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Verify Section (layout preserved, blockchain text removed) --- */
+        .blockchain-frame {
+            position: relative;
+            padding: 2px;
+            border-radius: 18px;
+        }
+
+        .verify-box {
+            background-color: #0A192F;
+            border-radius: 16px;
+            padding: 50px;
+            max-width: 750px;
+            margin: 0 auto;
+            text-align: left;
+            position: relative;
+            z-index: 1;
+            border: 1px solid var(--border-color);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab {
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-secondary);
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .tab::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--brand-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .tab.active {
+            color: var(--brand-cyan);
+        }
+
+        .tab.active::after {
+            width: 100%;
+        }
+
+        .tab-content-item {
+            display: none;
+        }
+
+        .tab-content-item.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        textarea,
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            background-color: #112240;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        textarea:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--brand-cyan);
+            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.15);
+        }
+
+        textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        .analyze-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            background-color: var(--brand-cyan);
+            color: #0A192F;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 25px;
+        }
+
+        .analyze-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(100, 255, 218, 0.2);
+        }
+
+        .analyze-button:disabled {
+            background-color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        .dropzone {
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        .dropzone:hover {
+            border-color: var(--brand-cyan);
+            background-color: #112240;
+        }
+
+        .dropzone-content p {
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-top: 15px;
+        }
+
+        .change-file-btn {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--brand-cyan);
+            margin-top: 15px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .results-box {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .result-card {
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            animation: fadeIn 0.5s ease;
+            background-color: var(--surface-color-glass);
+            backdrop-filter: blur(5px);
+        }
+
+        .result-icon {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .result-card.real .result-title {
+            color: var(--success-color);
+        }
+
+        .result-card.fake .result-title {
+            color: var(--danger-color);
+        }
+
+        .result-confidence {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        /* removed blockchain-specific UI (hashes, badge) while keeping layout */
+        .loading-spinner {
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--brand-cyan);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+                </svg>
+                MediaVerify
+            </a>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#verify-media">Verify Content</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Authenticity in the Age of AI.<br><span>Verified by AI.</span></h1>
+                <p class="hero-subtitle">Our advanced platform uses cutting-edge AI to detect manipulated media and provide clear analysis.</p>
+                <a href="#verify-media" class="cta-button">Verify Your Content Now</a>
+            </div>
+        </section>
+
+        <section class="features-section section" id="features">
+            <div class="container">
+                <h2 class="section-title">A New Standard in Verification</h2>
+                <p class="section-subtitle">We combine multiple layers of technology to provide a comprehensive and trustworthy analysis of any media file.</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19.5 12.5c0 .69-.1 1.36-.28 2H5.28c-.17-.64-.28-1.31-.28-2s.1-1.36.28-2h14.43c.18.64.28 1.31.28 2zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-7.95 9c-.02.17-.05.33-.05.5s.03.33.05.5h3.48c-.1-1.19.36-2.32 1.2-3.16-.84.84-1.31 1.97-1.2 3.16H4.05zm5.47-5.49c.27-.27.56-.52.88-.73.32.21.61.46.88.73.97 1 1.52 2.34 1.52 3.81 0 .23-.02.46-.05.68h-4.8c-.03-.22-.05-.45-.05-.68 0-1.47.55-2.81 1.52-3.81zM12 20c-1.89 0-3.62-.77-4.95-2.05h9.9C15.62 19.23 13.89 20 12 20zm4.48-6.5h3.48c.02-.17.05-.33.05-.5s-.03-.33-.05-.5h-3.48c.1 1.19-.36 2.32-1.2 3.16.84-.84 1.31 1.97 1.2-3.16z" />
+                            </svg></div>
+                        <h3 class="feature-title">AI-Powered Detection</h3>
+                        <p class="feature-description">Our deep learning models are trained on millions of examples to spot the subtle artifacts left behind by AI manipulation.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M22 6h-6V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H2v15h20V6zm-8-2h4v2h-4V4zM4 8h16v11H4V8zm7 1.5c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm0 4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z" />
+                            </svg></div>
+                        <h3 class="feature-title">Secure Records</h3>
+                        <p class="feature-description">Each analysis can generate a tamper-evident report for auditing and organizational workflows (configurable per deployment).</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 3C6.48 3 2 7.48 2 13c0 3.89 2.21 7.23 5.42 8.82.05-.33.08-.66.08-1 0-1.93-1.57-3.5-3.5-3.5-1.07 0-2.02.48-2.65 1.24C1.07 15.82 1 14.45 1 13c0-4.97 4.03-9 9-9s9 4.03 9 9c0 1.45-.07 2.82-.35 4.06-2.06-1.56-4.99-2.06-7.65-2.06-3.83 0-7.06 1.84-8.83 4.3C5.77 19.23 8.71 21 12 21c4.97 0 9-4.03 9-9s-4.03-10-9-10zm0 6c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                            </svg></div>
+                        <h3 class="feature-title">Detailed Analysis</h3>
+                        <p class="feature-description">Receive a clear, actionable result—"Real" or "Fake"—along with a confidence score and suggested next steps.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="verify-section section" id="verify-media">
+            <div class="container">
+                <h2 class="section-title">Verify Your Content</h2>
+                <p class="section-subtitle">Upload an image or paste text to receive an instant AI-powered analysis.</p>
+                <div class="blockchain-frame">
+                    <div class="verify-box">
+                        <div class="tabs">
+                            <div class="tab media-tab" data-tab="media">Media File</div>
+                            <div class="tab text-tab active" data-tab="text">Text Content</div>
+                        </div>
+                        <div class="tab-content">
+                            <div id="media-content" class="tab-content-item">
+                                <div class="form-group">
+                                    <label for="media-files">Upload Image for Analysis</label>
+                                    <div class="dropzone">
+                                        <div class="dropzone-content">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="color: #8892B0;">
+                                                <path d="M21.2 15c.7-1.2 1-2.5.7-3.9-.6-2.4-3-4-5.4-4-1.6 0-3.1.8-4 2.1-1.1-.5-2.3-.5-3.4 0C7.1 7.8 5.6 7 4 7c-2.4 0-4.6 1.6-5.2 4-.3 1.4 0 2.7.7 3.9l.7.7c.5.5 1.4.5 2 0l1.4-1.4c.5-.5.5-1.4 0-2-.5-.5-1.4-.5-2 0l-.7.7c-.3.2-.4.6-.3.9.2.7.7 1.2 1.4 1.4.7.2 1.4 0 2-.5l1.4-1.4c.5-.5 1.4-.5 2 0 .5.5.5 1.4 0 2l-1.4 1.4c-.5.5-.5 1.4 0 2 .5.5 1.4.5 2 0l1.4-1.4c.5-.5.5-1.4 0-2-.5-.5-1.4-.5-2 0l-.7.7c-.3.2-.4.6-.3.9.2.7.7 1.2 1.4 1.4.7.2 1.4 0 2-.5l1.4-1.4c.5-.5 1.4-.5 2 0 .5.5.5 1.4 0 2l-1.4 1.4c-.5.5-.5 1.4 0 2 .5.5 1.4.5 2 0l.7-.7c.7-1.2 1-2.5.7-3.9z" />
+                                            </svg>
+                                            <p>Drag & drop or click to select a PNG or JPG file</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="analyze-button" id="verify-image-btn" style="display: none;">Verify Image</button>
+                                <div class="results-box" id="media-results-box"></div>
+                            </div>
+                            <div id="text-content" class="tab-content-item active">
+                                <form id="text-verify-form">
+                                    <div class="form-group">
+                                        <label for="text-to-verify">Text Content to Verify</label>
+                                        <textarea id="text-to-verify" placeholder="Paste a news article, social media post, or other text content here..."></textarea>
+                                    </div>
+                                    <button type="submit" class="analyze-button" id="verify-text-btn">Verify Text</button>
+                                </form>
+                                <div class="results-box" id="text-results-box"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- blockchain-specific badge was removed, layout preserved -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Elements ---
+            const textToVerifyInput = document.getElementById('text-to-verify');
+            const textVerifyForm = document.getElementById('text-verify-form');
+            const textResultsBox = document.getElementById('text-results-box');
+
+            const mediaTabContent = document.getElementById('media-content');
+            const dropzone = mediaTabContent.querySelector('.dropzone');
+            const dropzoneContent = mediaTabContent.querySelector('.dropzone-content');
+            const mediaResultsBox = document.getElementById('media-results-box');
+            const verifyImageBtn = document.getElementById('verify-image-btn');
+
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/jpeg, image/png';
+            fileInput.style.display = 'none';
+            mediaTabContent.appendChild(fileInput);
+
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content-item');
+
+            // --- State Variable ---
+            let selectedImageFile = null;
+
+            // --- API Configuration ---
+            const API_BASE_URL = 'http://127.0.0.1:5000';
+            const TEXT_API_URL = `${API_BASE_URL}/predict_text`;
+            const IMAGE_API_URL = `${API_BASE_URL}/predict_image`;
+
+            const defaultDropzoneHTML = dropzoneContent.innerHTML;
+
+            // --- Tab Switching Logic ---
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetTab = tab.getAttribute('data-tab');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${targetTab}-content`) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // --- Text Form Submission Logic ---
+            textVerifyForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const text = textToVerifyInput.value.trim();
+                const button = textVerifyForm.querySelector('button');
+                if (!text) {
+                    textResultsBox.innerHTML = `<div class="result-card fake"><div class="result-title">Error</div><p>Please paste content to verify.</p></div>`;
+                    return;
+                }
+                button.disabled = true;
+                textResultsBox.innerHTML = '<div class="loading-spinner" style="display: block;"></div>';
+                try {
+                    const response = await fetch(TEXT_API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ text })
+                    });
+                    const data = await response.json();
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Could not reach ML server.');
+                    }
+
+                    // Expecting at least fake_score from server for text
+                    const { fake_score } = data;
+
+                    let resultClass, resultIcon, interpretationText;
+                    if (fake_score >= 7) {
+                        resultClass = 'fake';
+                        resultIcon = '⚠';
+                        interpretationText = 'High Likelihood of Fabrication';
+                    } else if (fake_score >= 4) {
+                        resultClass = 'fake';
+                        resultIcon = '🟡';
+                        interpretationText = 'Suspicious Content';
+                    } else {
+                        resultClass = 'real';
+                        resultIcon = '✅';
+                        interpretationText = 'Appears to be Authentic';
+                    }
+
+                    textResultsBox.innerHTML = `<div class="result-card ${resultClass}"><div class="result-icon">${resultIcon}</div><div class="result-title">${interpretationText}</div><div class="result-confidence">Fake Score: ${fake_score} / 9</div></div>`;
+                } catch (error) {
+                    textResultsBox.innerHTML = `<div class="result-card fake"><div class="result-title">Error</div><p>${error.message}</p></div>`;
+                } finally {
+                    button.disabled = false;
+                }
+            });
+
+            // --- Media File Selection Logic ---
+            const triggerFileInput = () => fileInput.click();
+            dropzone.addEventListener('click', triggerFileInput);
+
+            fileInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (!file) {
+                    selectedImageFile = null;
+                    verifyImageBtn.style.display = 'none';
+                    return;
+                }
+
+                selectedImageFile = file;
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    dropzoneContent.innerHTML = `
+                        <img src="${e.target.result}" style="max-width: 100%; max-height: 150px; object-fit: contain; border-radius: 8px;">
+                        <div class="change-file-btn">Click to change file</div>`;
+                    dropzoneContent.querySelector('.change-file-btn').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        triggerFileInput();
+                    });
+                };
+                reader.readAsDataURL(file);
+
+                // Show the verify button and clear old results
+                verifyImageBtn.style.display = 'flex';
+                mediaResultsBox.innerHTML = '';
+            });
+
+            // --- Image Verification Button Click Logic ---
+            verifyImageBtn.addEventListener('click', async () => {
+                if (!selectedImageFile) {
+                    mediaResultsBox.innerHTML = `<div class="result-card fake"><div class="result-title">Error</div><p>No file has been selected.</p></div>`;
+                    return;
+                }
+
+                verifyImageBtn.disabled = true;
+                mediaResultsBox.innerHTML = '<div class="loading-spinner" style="display: block;"></div>';
+
+                const formData = new FormData();
+                formData.append('file', selectedImageFile);
+
+                try {
+                    const response = await fetch(IMAGE_API_URL, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await response.json();
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Server error during image analysis.');
+                    }
+
+                    // Read keys expected from the image API
+                    // predicted_label: 0 (Real) or 1 (Fake)
+                    // fake_score: numeric
+                    const { predicted_label, fake_score } = data;
+
+                    let resultClass, resultIcon, resultText;
+                    if (predicted_label === 1) {
+                        resultClass = 'fake';
+                        resultIcon = '⚠';
+                        resultText = 'This image is likely FAKE.';
+                    } else {
+                        resultClass = 'real';
+                        resultIcon = '✅';
+                        resultText = 'This image appears to be REAL.';
+                    }
+
+                    mediaResultsBox.innerHTML = `
+                        <div class="result-card ${resultClass}">
+                            <div class="result-icon">${resultIcon}</div>
+                            <div class="result-title">${resultText}</div>
+                            <div class="result-confidence">Fake Score: ${fake_score} / 9</div>
+                        </div>`;
+                } catch (error) {
+                    mediaResultsBox.innerHTML = `<div class="result-card fake"><div class="result-title">Error</div><p>${error.message}</p></div>`;
+                } finally {
+                    verifyImageBtn.disabled = false;
+                }
+            });
+
+            // Set initial active state
+            document.querySelector('.tab.text-tab').classList.add('active');
+            document.getElementById('text-content').classList.add('active');
+        });
+    </script>
+</body>
+
+</html>
