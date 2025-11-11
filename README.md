@@ -50,7 +50,9 @@ git clone https://github.com/mahek-20042005/fake-news-detection-photos-and-text-
 
 ### Create and activate a virtual environment
 python -m venv .venv
+
 .\.venv\Scripts\activate  # On Windows
+
  source .venv/bin/activate  # On macOS/Linux
 
 ### Install all dependencies
@@ -68,4 +70,4 @@ python ml_image/scripts/train.py
 ### Start the backend server
 python backend/app.py
 
-# After the server starts, open the frontend/index.html file in your web browser to use the application.
+### After the server starts, open the frontend/index.html file in your web browser to use the application.
