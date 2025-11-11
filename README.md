@@ -44,3 +44,28 @@ image dataset- https://www.kaggle.com/datasets/hungle3401/faceforensics?resource
 
 text dataset-https://www.kaggle.com/datasets/doanquanvietnamca/liar-dataset
 
+### Clone the repository
+git clone https://github.com/mahek-20042005/fake-news-detection-photos-and-text-usingML.git
+
+
+### Create and activate a virtual environment
+python -m venv .venv
+.\.venv\Scripts\activate  # On Windows
+ source .venv/bin/activate  # On macOS/Linux
+
+### Install all dependencies
+pip install -r requirements.txt
+
+### Train the text model
+python ml_text/modeltrain_text_only.py
+
+### Preprocess the image data (videos to frames)
+python ml_image/scripts/extract_and_split_frames.py
+
+### Train the image model
+python ml_image/scripts/train.py
+
+### Start the backend server
+python backend/app.py
+
+# After the server starts, open the frontend/index.html file in your web browser to use the application.
